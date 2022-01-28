@@ -2,8 +2,16 @@
 {% load render_table from django_tables2 %}
 
 {% block content %}
-
-    <table>
+        <div class="side-nav">
+            <h2>Find your car!</h2>
+        </div>
+        <!-- <div class="col-12 col-md-8" ><h2></h2></div> -->
+        <div class="d-flex justify-content-center" >
+            <div class="table-bordered">
+                {% render_table cars_table %}
+            </div>
+        </div>
+    <!-- <table>
         <tr>
             <th>Marka</th>
             <th>Model</th>
@@ -24,7 +32,7 @@
             <td>{{ item.price }}</td>
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
 
 
 
