@@ -11,10 +11,16 @@
     text-decoration: underline;
 }
 
-h1 {
+.h1 {
     text-align: center;
     font-family: 'Josefin Sans', sans-serif;
     
+}
+
+.greetings i {
+    float: center;
+    color: #a0a0a0;
+    font-size: 10pt;
 }
 
 .top-menu {
