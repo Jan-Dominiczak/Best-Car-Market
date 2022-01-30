@@ -23,14 +23,12 @@
                 {% endif %}
                 {% if user.is_authenticated %}
                 <div class="greetings">
-                    <a href="{% url 'profile' %}"><i>Hello {{ user.first_name }} {{ user.last_name }}!</i></a> <br> <br>
+                    <i>Hello, {{ user.first_name }} {{ user.last_name }}! </i> <br>
+                    <a href="{% url 'profile' %}"style="font-size:14">Profile</a> <br> 
                 </div>
                 <a href="{% url 'log_out' %}" class="top-menu"><i class="bi bi-door-open"></i></a>
                 {% endif %}
             </div>
-            <!-- {% if user.is_authenticated %}
-
-            {% endif %} -->
             <h1><a href="/">Best Car Market</a></h1>
         </div>
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse 
 
 # class Dealer(models.Model):
 #     first_name = models.CharField(max_length = 30)
@@ -25,3 +26,6 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand}, {self.model}, {self.gen}, {self.year}, {self.status}, {self.available}, {self.price}, {self.seller_id.first_name} {str(self.seller_id.last_name)[0]}."
+
+    def get_absolute_url(self):
+        return reverse('edit_post', kwargs={"pk": self.pk})

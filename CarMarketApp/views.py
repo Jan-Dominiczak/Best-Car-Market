@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import User
 
 from django.db import models
 from .models import Car
-from .tables import CarTable
+from .tables import CarTable, MyCarTable
 from .forms import SignUpForm, AddCarForm
 
 
@@ -30,7 +30,7 @@ def signup(request):
 def profile(request):
     current_user = request.user
     my_cars = Car.objects.filter(seller_id = current_user.id)
-    my_cars_table = CarTable(my_cars)
+    my_cars_table = MyCarTable(my_cars)
     return render(request, 'CarMarketApp/profile.html', {"my_cars_table": my_cars_table})
 
 def add_post(request):
@@ -44,6 +44,18 @@ def add_post(request):
     else:
         form = AddCarForm()
     return render(request, 'CarMarketApp/add_post.html', {'form': form})
+
+def edit_post(request, pk):
+    car = get_object_or_404(Car, pk=pk)
+    if request.method=='POST':
+        form = AddCarForm(request.POST, instance = car)
+        if form.is_valid():
+            car = form.save()
+            return redirect('profile')
+    else:
+        form = AddCarForm(instance = car)
+    return render(request, 'CarMarketApp/edit_post.html', {'form': form, 'pk': pk})
+
 
 def log_in(request):
     if request.method == "POST":

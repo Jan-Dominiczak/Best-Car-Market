@@ -1,0 +1,13 @@
+{% extends 'CarMarketApp/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <h2>Edit your post:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Accept changes</button>
+    </form>
+</div>
+
+{% endblock %}
