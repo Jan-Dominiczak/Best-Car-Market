@@ -3,9 +3,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import User
 
 from django.db import models
-from .models import Car
+from .models import Car, Contact
 from .tables import CarTable, MyCarTable
-from .forms import SignUpForm, AddCarForm
+from .forms import SignUpForm, AddCarForm, AddContactForm
 
 
 def main_site(request):
@@ -33,6 +33,18 @@ def profile(request):
     my_cars_table = MyCarTable(my_cars)
     return render(request, 'CarMarketApp/profile.html', {"my_cars_table": my_cars_table})
 
+def update_user_contact_info(request):
+    if request.method =='POST':
+        form = AddContactForm(request.POST)
+        if form.is_valid():
+            user_info = form.save(commit=False)
+            user_info.user_id = User.objects.get(pk=request.user.id)
+            user_info.save()
+            return redirect('profile')
+    else:
+        form = AddContactForm()
+    return render(request, 'CarMarketApp/update_user_contact_info.html', {'form': form})
+
 def add_post(request):
     if request.method == 'POST':
         form = AddCarForm(request.POST)
@@ -47,13 +59,17 @@ def add_post(request):
 
 def edit_post(request, pk):
     car = get_object_or_404(Car, pk=pk)
-    if request.method=='POST':
-        form = AddCarForm(request.POST, instance = car)
-        if form.is_valid():
-            car = form.save()
-            return redirect('profile')
+    current_user = request.user
+    if car.seller_id == User.objects.get(pk=current_user.id):
+        if request.method=='POST':
+            form = AddCarForm(request.POST, instance = car)
+            if form.is_valid():
+                car = form.save()
+                return redirect('profile')
+        else:
+            form = AddCarForm(instance = car)
     else:
-        form = AddCarForm(instance = car)
+        return redirect('er_auth')
     return render(request, 'CarMarketApp/edit_post.html', {'form': form, 'pk': pk})
 
 def delete_post(request, pk):
@@ -63,7 +79,11 @@ def delete_post(request, pk):
 
 def details(request, pk):
     car = get_object_or_404(Car, pk=pk)
-    return render(request, 'CarMarketApp/details.html', {'car': car})
+    contact = Contact.objects.get(user_id = car.seller_id.pk)
+    return render(request, 'CarMarketApp/details.html', {'car': car, 'contact': contact})
+
+def er_auth(request):
+    return render(request, 'CarMarketApp/er_auth.html')
 
 def log_in(request):
     if request.method == "POST":
