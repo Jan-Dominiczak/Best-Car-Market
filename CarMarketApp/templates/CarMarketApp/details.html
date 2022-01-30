@@ -1,0 +1,13 @@
+{% extends 'CarMarketApp/base.html' %}
+
+{% block content %}
+<h2>Post details:</h2>
+
+<h4> {{ car.brand }} {{ car.model }}, {{ car.gen }} generation, produced in {{ car.year }} </h4>
+<h4>Status: {{ car.status }}</h4>
+<h4>Available for sale: {{ car.available }} </h4>
+<p>Description: <br>
+    {{ car.description }}
+</p>
+
+{% endblock %}

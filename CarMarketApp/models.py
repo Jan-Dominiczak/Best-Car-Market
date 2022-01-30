@@ -13,6 +13,7 @@ from django.urls import reverse
 #         return "%s %s %s" % (self.first_name, self.last_name, self.city)
 
 class Car(models.Model):
+    col1 = models.AutoField(primary_key=True)
     brand = models.CharField(max_length = 30)
     model = models.CharField(max_length = 30)
     gen = models.CharField(max_length = 30)
@@ -27,5 +28,8 @@ class Car(models.Model):
     def __str__(self):
         return f"{self.brand}, {self.model}, {self.gen}, {self.year}, {self.status}, {self.available}, {self.price}, {self.seller_id.first_name} {str(self.seller_id.last_name)[0]}."
 
-    def get_absolute_url(self):
+    def get_absolute_url_edit(self):
         return reverse('edit_post', kwargs={"pk": self.pk})
+
+    def get_absolute_url_details(self):
+        return reverse('details', kwargs={"pk": self.pk})

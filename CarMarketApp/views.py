@@ -56,6 +56,14 @@ def edit_post(request, pk):
         form = AddCarForm(instance = car)
     return render(request, 'CarMarketApp/edit_post.html', {'form': form, 'pk': pk})
 
+def delete_post(request, pk):
+    car = get_object_or_404(Car, pk=pk)
+    car.delete()
+    return redirect('profile')
+
+def details(request, pk):
+    car = get_object_or_404(Car, pk=pk)
+    return render(request, 'CarMarketApp/details.html', {'car': car})
 
 def log_in(request):
     if request.method == "POST":
