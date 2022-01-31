@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import User
 from django_tables2 import RequestConfig
+from django.contrib import messages
 
 from django.db import models
 from .models import Car, Contact
@@ -98,6 +99,8 @@ def log_in(request):
         if user is not None:
             login(request, user)
             return redirect('profile')
+        else:
+            messages.info(request, 'Incorrect username OR password')
     return render(request, 'CarMarketApp/login.html')
 
 def log_out(request):
