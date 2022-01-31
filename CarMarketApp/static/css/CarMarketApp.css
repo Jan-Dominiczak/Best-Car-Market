@@ -1,3 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+body {
+    display: flex; /* or css grid for more intricate layouts */
+    flex-direction: column;
+  }
+
 .page-header {
     background-color: black;
     margin-top: 0;
@@ -11,10 +26,9 @@
     text-decoration: underline;
 }
 
-.h1 {
+h1, h2 {
     text-align: center;
-    font-family: 'Josefin Sans', sans-serif;
-    
+    font-family: 'Josefin Sans', sans-serif; 
 }
 
 .greetings i {
@@ -43,8 +57,15 @@
 }
 
 .table-bordered {
+    border-width: 5px;
     margin-top: 50px;
     margin-left: 250px;
+    margin-right: 250px;
+}
+
+.table-headers {
+    background-color: #e9e9e9;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .row {
@@ -52,6 +73,71 @@
     margin-top: 50px;
 }
 
+.new-offer {
+    float: right;
+    margin-right: 275px;
+}
+
+.update-info {
+    float: right;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
 .content {
     margin-left: 50px;
+    margin-right: 50px;    
+}
+
+.form {
+    float: center;
+}
+
+.offer-header {
+    width: auto;
+    border-bottom: 2px solid #000000;
+    text-align: center;
+}
+
+.base-info {
+    float: left;
+    text-align: center;
+    padding: 20px;
+    margin-left: 5%;
+    /* border-bottom: 2px solid #009df8; */
+    width: 45%;
+    height: 75px;
+}
+
+.offer-details {
+    float: left;
+    padding: 20px;
+    margin-left: 5%;
+    width: 45%;
+    height: 300px;
+}
+
+.car-status {
+    float: left;
+    margin-left: 10%;
+}
+
+.car-available {
+    float: right;
+    margin-right: 10%;
+}
+
+.car-description {
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.seller-info {
+    float: right;
+    padding: 20px;
+    border-left: 2px solid #009df8;
+    /* margin-top: 20px; */
+    margin-right: 5%;
+    width: 30%;
+    height: 200px;
 }

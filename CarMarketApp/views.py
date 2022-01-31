@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import User
+from django_tables2 import RequestConfig
 
 from django.db import models
 from .models import Car, Contact
@@ -11,6 +12,7 @@ from .forms import SignUpForm, AddCarForm, AddContactForm
 def main_site(request):
     cars = Car.objects.all()
     table = CarTable(cars)
+    RequestConfig(request).configure(table)
     return render(request, 'CarMarketApp/main_site.html', {'cars_table': table})
 
 def signup(request):
@@ -22,7 +24,9 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username = username, password = raw_password)
             login(request, user)
-            return redirect('profile')
+            my_info = Contact(city = ' ',phone_number = int() , seller_status = ' ', company_name = ' ', user_id = User.objects.get(pk=request.user.id))
+            my_info.save()
+            return redirect('update_user_contact_info')
     else:
         form = SignUpForm()
     return render(request, 'CarMarketApp/signup.html', {'form': form})
@@ -31,18 +35,19 @@ def profile(request):
     current_user = request.user
     my_cars = Car.objects.filter(seller_id = current_user.id)
     my_cars_table = MyCarTable(my_cars)
+    RequestConfig(request).configure(my_cars_table)
     return render(request, 'CarMarketApp/profile.html', {"my_cars_table": my_cars_table})
 
 def update_user_contact_info(request):
+    user_contact = Contact.objects.get(user_id = request.user)
     if request.method =='POST':
-        form = AddContactForm(request.POST)
+        form = AddContactForm(request.POST, instance = user_contact)
         if form.is_valid():
-            user_info = form.save(commit=False)
-            user_info.user_id = User.objects.get(pk=request.user.id)
-            user_info.save()
+            user_contact = form.save(commit=False)
+            user_contact.save()
             return redirect('profile')
     else:
-        form = AddContactForm()
+        form = AddContactForm(instance = user_contact)
     return render(request, 'CarMarketApp/update_user_contact_info.html', {'form': form})
 
 def add_post(request):

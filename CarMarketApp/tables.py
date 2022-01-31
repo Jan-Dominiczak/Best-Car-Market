@@ -5,16 +5,18 @@ from .models import Car
 
 class CarTable(tables.Table):
     
-    # sprzedawca = tables.Column(verbose_name="Seller", accessor= "seller_id__first_name")
-    sprzedawca = tables.Column(verbose_name="Seller", empty_values=())
+    seller_id = tables.Column(verbose_name="Seller", empty_values=())
     details = tables.Column(verbose_name="", empty_values=())
 
     class Meta:
         model = Car
         template_name = 'django_tables2/bootstrap.html'
-        exclude = ("col1", "description", "seller_id")
+        exclude = ("col1", "description")
+        attrs = {"th" : {
+            "class" : "table-headers"
+            }}
     
-    def render_sprzedawca(self, record):
+    def render_seller_id(self, record):
         return format_html("<p>{} {}.</p>", record.seller_id.first_name, str(record.seller_id.last_name)[0])
 
     def render_details(self, record):
@@ -34,6 +36,10 @@ class MyCarTable(tables.Table):
         model = Car
         template_name = 'django_tables2/bootstrap.html'
         exclude = ("col1", "description", "seller_id", "Seller")
+        attrs = {"th" : {
+            "class" : "table-headers"
+            }}
+    
     
 
     def render_edit(self, record):

@@ -5,7 +5,7 @@ from django.urls import reverse
 class Contact(models.Model):
     city = models.CharField(max_length = 30,  help_text = "Tell buyers, where can they buy your car")
     phone_number = models.IntegerField(help_text = 'Your phone number will help buyers contact with you')
-    seller_status = models.CharField(max_length = 30, choices=[('private', 'Private'), ('dealer', 'Dealer')], help_text= "Private seller/Company")       # private/dealer/used car dealer
+    seller_status = models.CharField(max_length = 30, choices=[('Private', 'Private'), ('Company', 'Company')], help_text= "Private seller/Company")       # private/dealer/used car dealer
     company_name = models.CharField(max_length = 50, help_text="Optional")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -19,12 +19,11 @@ class Car(models.Model):
     model = models.CharField(max_length = 30)
     gen = models.CharField(max_length = 30)
     year = models.CharField(max_length = 30)
-    status = models.CharField(max_length = 32, choices =[('New', 'New'), ('Used', 'Used'), ('Damaged', 'Damaged')])              # new/used/damaged
-    available = models.BooleanField(max_length = 30)        # True/False
+    status = models.CharField(max_length = 32, choices =[('New', 'New'), ('Used', 'Used'), ('Damaged', 'Damaged')])
+    available = models.BooleanField(max_length = 30)
     price = models.FloatField(max_length = 30)
     description = models.TextField(max_length = 4000, default='')
     seller_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = "Seller") 
-    # {self.seller_id.first_name} {self.seller_id.last_name}
 
     def __str__(self):
         return f"{self.brand}, {self.model}, {self.gen}, {self.year}, {self.status}, {self.available}, {self.price}, {self.seller_id.first_name} {str(self.seller_id.last_name)[0]}."

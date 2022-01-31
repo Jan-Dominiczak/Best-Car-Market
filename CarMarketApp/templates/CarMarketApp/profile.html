@@ -3,14 +3,16 @@
 
 {% block content %}
 
-<em><a href="{% url 'update_user_contact_info' %}">Update your contact info</a></em>
+<div class='update-info'>
+    <em><a href="{% url 'update_user_contact_info' %}">Update your contact info</a></em>
+</div>
 
 
 <div class="row">
     <div class="col-md-6">
         <h2>My published offers: </h2>
     </div>
-    <div class="col-md-6" style="text-align: right">
+    <div class="new-offer">
         <p>Add new offer <a href="{% url 'add_post' %}"><span class="glyphicon glyphicon-plus"></span></a></p>
     </div>
 </div>

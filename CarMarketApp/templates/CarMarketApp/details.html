@@ -1,19 +1,37 @@
 {% extends 'CarMarketApp/base.html' %}
 
 {% block content %}
-<h2>Post details:</h2>
 
-<h4> {{ car.brand }} {{ car.model }}, {{ car.gen }} generation, produced in {{ car.year }} </h4>
-<h4>Status: {{ car.status }}</h4>
-<h4>Available for sale: {{ car.available }} </h4>
-<p><em>Description:</em> <br>
-    {{ car.description }}
-</p>
+<div class="offer-header">
+    <h2>Post details:</h2>
+</div>
 
-<p><em>Seller:</em> {{ car.seller_id.first_name }} {{ car.seller_id.last_name }} <br>
-<em>Location:</em> {{ contact.city }} <br>
-<em>Contact:</em> {{ car.seller_id.email }} <br>
-<em>Phone number:</em> {{ contact.phone_number }}
-</p>
+<div class="base-info">
+    <h3> {{ car.brand }} {{ car.model }}, {{ car.gen }} generation, produced in {{ car.year }} </h3>
+</div>
+<div class="seller-info">
+    <h3>Contact info:</h3>
+    <p><em>Seller:</em> {{ car.seller_id.first_name }} {{ car.seller_id.last_name }} <br>
+        <em>Location:</em> {{ contact.city }} <br>
+        <em>Contact:</em> {{ car.seller_id.email }} <br>
+        <em>Phone number:</em> {{ contact.phone_number }}
+        </p>
+</div>
+<div class="offer-details">
+    <div class="car-status">
+        <h4>Status: {{ car.status }}</h4>
+    </div>
+    <div class="car-available">
+        <h4>Available for sale: {{ car.available }} </h4>
+    </div>
+    <div class="car-description">
+        <p><em>Description:</em> <br>
+            {{ car.description }}
+        </p>    
+    </div>
+
+</div>
+
+
 
 {% endblock %}

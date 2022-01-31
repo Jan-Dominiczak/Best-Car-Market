@@ -13,7 +13,7 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
         
 class AddContactForm(forms.ModelForm):
-
+    company_name = forms.CharField(max_length = 50, required = False, help_text = 'Optional')
     class Meta:
         model = Contact
         fields = ('phone_number', 'city', 'seller_status', 'company_name')
