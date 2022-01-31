@@ -14,7 +14,9 @@
     <p><em>Seller:</em> {{ car.seller_id.first_name }} {{ car.seller_id.last_name }} <br>
         <em>Location:</em> {{ contact.city }} <br>
         <em>Contact:</em> {{ car.seller_id.email }} <br>
-        <em>Phone number:</em> {{ contact.phone_number }}
+        <em>Phone number:</em> {{ contact.phone_number }} <br> <br>
+        <em>Private/Company:</em> {{ contact.seller_status}} <br>
+        <em>Company name:</em> {{ contact.company_name }}
         </p>
 </div>
 <div class="offer-details">
